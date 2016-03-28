@@ -1,0 +1,128 @@
+{
+  "name": "flatboard",
+  "description": "Flatboard App",
+  "author": "Flatboard!",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juanmadurand/flatboard"
+  },
+  "main": "./app/src/main.js",
+  "scripts": {
+    "start": "npm run dev",
+    "start-prod": "better-npm-run start-prod",
+    "build": "npm run build-assets && npm run build-doc",
+    "build-assets": "webpack --verbose --colors --display-error-details --config tools/webpack/prod.config.js",
+    "build-doc": "mkdir -p app/static/api-doc && raml2html app/src/api/raml/api.raml > app/static/api-doc/index.html",
+    "lint": "eslint app",
+    "start-dev": "better-npm-run start-dev",
+    "watch-client": "better-npm-run watch-client",
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\""
+  },
+  "betterScripts": {
+    "start-prod": {
+      "command": "node ./app/src/main.js",
+      "env": {
+        "NODE_PATH": "./app/src",
+        "NODE_ENV": "production"
+      }
+    },
+    "start-dev": {
+      "command": "node ./app/src/main.js",
+      "env": {
+        "NODE_PATH": "./app/src",
+        "NODE_ENV": "development"
+      }
+    },
+    "watch-client": {
+      "command": "node tools/webpack/webpack-dev-server.js",
+      "env": {
+        "UV_THREADPOOL_SIZE": 100,
+        "NODE_PATH": "./app/src/www"
+      }
+    }
+  },
+  "dependencies": {
+    "babel": "~5.8.29",
+    "babel-plugin-typecheck": "^2.0.0",
+    "better-npm-run": "^0.0.4",
+    "bluebird": "^3.3.3",
+    "bluebird-co": "^2.1.2",
+    "classnames": "^2.2.3",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.1",
+    "core-decorators": "^0.11.0",
+    "express": "^4.13.3",
+    "http-status-codes": "^1.0.6",
+    "lodash.debounce": "^4.0.3",
+    "lodash.throttle": "^4.0.1",
+    "node-mysql": "^0.4.2",
+    "normalizr": "^2.0.0",
+    "osprey": "^0.2.0",
+    "promise-mysql": "^1.3.1",
+    "react": "^0.14.2",
+    "react-addons-update": "^0.14.7",
+    "react-bootstrap": "^0.28.1",
+    "react-cookie": "^0.4.5",
+    "react-dom": "^0.14.1",
+    "react-helmet": "^2.2.0",
+    "react-redux": "^4.0.0",
+    "react-router": "2.0.0",
+    "react-router-redux": "^3.0.0",
+    "redux": "^3.0.4",
+    "redux-async-connect": "^1.0.0-rc2",
+    "serialize-javascript": "^1.1.2",
+    "serve-favicon": "^2.3.0",
+    "superagent": "^1.4.0",
+    "superagent-promise-plugin": "^2.1.0",
+    "use-scroll-behavior": "0.0.4",
+    "webpack-isomorphic-tools": "^2.2.18"
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.1.0",
+    "babel-core": "~5.8.33",
+    "babel-eslint": "^5.0.0-beta6",
+    "babel-loader": "~5.3.3",
+    "babel-plugin-react-transform": "~1.1.1",
+    "bootstrap-loader": "^1.0.8",
+    "bootstrap-sass": "^3.3.6",
+    "clean-webpack-plugin": "^0.1.6",
+    "concurrently": "^0.1.1",
+    "css-loader": "^0.23.1",
+    "eslint": "2.2.0",
+    "eslint-config-airbnb": "6.0.0",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-import": "^0.13.0",
+    "eslint-plugin-react": "^4.0.0",
+    "eslint_d": "^3.1.0",
+    "extract-text-webpack-plugin": "^0.9.1",
+    "file-loader": "^0.8.5",
+    "font-awesome": "^4.4.0",
+    "font-awesome-webpack": "0.0.4",
+    "json-loader": "^0.5.4",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "node-sass": "^3.4.2",
+    "piping": "^0.3.0",
+    "raml2html": "^2.2.0",
+    "react-transform-catch-errors": "^1.0.0",
+    "react-transform-hmr": "^1.0.1",
+    "redbox-react": "^1.1.1",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "resolve-url-loader": "^1.4.3",
+    "sass-loader": "^3.1.2",
+    "sass-resources-loader": "^1.0.2",
+    "strip-loader": "^0.1.0",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.9",
+    "webpack-dev-middleware": "^1.4.0",
+    "webpack-hot-middleware": "^2.5.0"
+  },
+  "engines": {
+    "node": "5.6.0"
+  }
+}

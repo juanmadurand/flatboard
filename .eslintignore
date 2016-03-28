@@ -1,0 +1,8 @@
+app/static/*
+
+app/src/main.js
+app/src/api/mock.js
+app/src/globals.js
+app/src/server.babel.js
+tools/webpack/*
+app/src/www/webpack-isomorphic-tools.js

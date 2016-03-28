@@ -1,0 +1,52 @@
+@import "variables";
+@import "mixins";
+@import 'emojipicker';
+
+/**
+ * Override Bootstrap styles that you can't modify via variables here.
+ *
+ */
+.navbar {
+  &-default {
+    background-color: $header-bg-color;
+    border: none;
+  }
+  &-brand {
+    position: relative;
+    padding-left: 50px;
+  }
+}
+.well {
+  background: #fff;
+  border: none;
+}
+
+.btn {
+  &-default {
+    background: $gray;
+    font-size: 9.5px;
+    padding: 3px 8px;
+    text-transform: uppercase;
+    @include darkHover($gray);
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+//TODO sacar despues de la DEMO
+
+.navbar-fixed-top .form-group-sm {
+  margin: 0px;
+}
+
+.navbar-nav > li {
+  float: left;
+}
+
+.navbar-right button.btn.btn-default {
+  @media screen and (max-width: 768px){
+    margin-top: 10px!important;
+  }
+}

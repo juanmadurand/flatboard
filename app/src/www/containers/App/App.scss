@@ -1,0 +1,13 @@
+.brand {
+  width: ($header-brand-width)+px;
+  height: ($header-height - 20)+px;
+  display: block;
+  margin: 10px;
+  background: url(#{$static}logo.png) no-repeat center center;
+  background-size: contain;
+}
+
+.appContent {
+  margin: ($header-height)+px 0; // for fixed navbar
+  background: $grey-light;
+}

@@ -1,0 +1,14 @@
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables";
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins";
+
+@mixin lightHover($color) {
+  &:hover, &:focus {
+    background-color: lighten($color, 10%);
+  }
+}
+
+@mixin darkHover($color) {
+  &:hover, &:focus {
+    background-color: darken($color, 10%);
+  }
+}

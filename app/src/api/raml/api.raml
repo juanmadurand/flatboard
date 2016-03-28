@@ -1,0 +1,17 @@
+#%RAML 0.8
+title: Flatboard API
+# baseUri:
+mediaType: application/json
+# schemas:
+# - Test: !include schemas/test.json
+
+/youtube: !include youtube.raml
+
+/brew/coffee:
+  get:
+    responses:
+      418:
+        body:
+          application/json:
+            example: |
+              { error: true, reason: "I'm a teapot" }
