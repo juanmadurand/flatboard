@@ -14,29 +14,26 @@ export default class YoutubeDao {
   }
 
   async searchVideos(term: string) {
-    const res = await this.search(term, 'video');
-    return res.body;
+    return this.search(term, 'video');
   }
 
-  async search(term: string) {
-    const results = await this.call('search', {
+  async search(term: string, type: string) {
+    return this.call('search', {
       part: 'snippet',
       q: term,
-      type: 'video',
+      type,
       videoCaption: 'closedCaption',
     });
-    return results;
   }
 
-  async call(endpoint: string, query: Object) {
-    try {
-      return await superagent.get(`${API_URL}/${endpoint}`)
-      .query(query)
-      .query({key: config.secrets.youtube.apiKey})
-      .use(superagentPromisePlugin)
-      .end();
-    } catch (e) {
-      throw new Error(`Youtube request failed: ${e.message}`);
-    }
+  call(endpoint: string, query: Object) {
+    return superagent.get(`${API_URL}/${endpoint}`)
+    .query(query)
+    .query({key: config.secrets.youtube.apiKey})
+    .use(superagentPromisePlugin)
+    .then((res) => (res.body))
+    .catch((err) => {
+      throw new Error(`Youtube request failed: ${err.message}`);
+    });
   }
 }

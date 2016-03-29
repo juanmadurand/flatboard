@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { autobind } from 'core-decorators';
 
+import Input from 'react-bootstrap/lib/Input';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+
+
 class SearchBar extends Component {
   static propTypes = {
     onSearchTermChange: PropTypes.func.isRequired,
@@ -20,11 +24,15 @@ class SearchBar extends Component {
   }
 
   render() {
+    const innerGlyphicon = <Glyphicon glyph="search" />;
     return (
       <div className="search-bar">
-        <input
+        <Input
+          type="text"
           value={this.state.term}
           onChange={this.handleInputChange}
+          placeholder="Search video"
+          addonBefore={innerGlyphicon}
         />
       </div>
     );

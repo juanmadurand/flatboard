@@ -1,4 +1,25 @@
 .video_list {
   position: relative;
   padding: 5px 0;
+  &_thumbnail {
+  }
+
+  &_content {
+    h3 {
+      max-width: 440px;
+      font-size: 14px;
+      margin: 0 0 2px 0;
+      a{
+        font-weight: bold;
+        color: #167ac6;
+        line-height: 1.3em;
+        text-overflow: ellipsis;
+        white-space: normal;
+        word-wrap: break-word;
+      }
+    }
+    p {
+      line-height: 17px;
+    }
+  }
 }

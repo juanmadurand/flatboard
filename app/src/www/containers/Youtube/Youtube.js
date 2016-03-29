@@ -39,6 +39,7 @@ export default class Youtube extends Component {
 
     return (
       <div>
+        <h3>Youtube search component</h3>
         <SearchBar onSearchTermChange={debounceSearch} />
         {videos.loaded ?
           <VideoList videos={videos.items} />
