@@ -21,16 +21,6 @@
   border: none;
 }
 
-.btn {
-  &-default {
-    background: $gray;
-    font-size: 9.5px;
-    padding: 3px 8px;
-    text-transform: uppercase;
-    @include darkHover($gray);
-  }
-}
-
 img {
   max-width: 100%;
 }

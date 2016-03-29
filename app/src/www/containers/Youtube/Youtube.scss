@@ -1,0 +1,12 @@
+.yt {
+  &_header {
+    padding: 10px 0;
+    @include clearfix;
+    h3 {
+      margin: 0;
+      i {
+        margin-right: 4px;
+      }
+    }
+  }
+}
