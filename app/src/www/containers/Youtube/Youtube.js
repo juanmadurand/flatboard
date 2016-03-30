@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import debounce from 'lodash.debounce';
-import { load as videoSearch } from 'www/reducers/youtube';
+import { isLoaded, load as videoSearch } from 'www/reducers/youtube';
 import { autobind } from 'core-decorators';
 
-import Well from 'react-bootstrap/lib/Well';
 import Button from 'react-bootstrap/lib/Button';
 
 import {
@@ -12,11 +11,22 @@ import {
 } from 'www/components';
 
 import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-async-connect';
 import { bindActionCreators } from 'redux';
 
 import { Loader } from 'www/components';
 
 const styles = require('./Youtube.scss');
+
+@asyncConnect([{
+  promise: ({store: {dispatch, getState}}) => {
+    console.log('onAsyncConnect', this);
+    if (!isLoaded(getState())) {
+      return dispatch(videoSearch('muse'));
+    }
+    return null;
+  },
+}])
 
 @connect(
   state => ({
@@ -28,7 +38,8 @@ const styles = require('./Youtube.scss');
 export default class Youtube extends Component {
   static propTypes = {
     videos: PropTypes.object,
-    videoSearch: PropTypes.function,
+    videoSearch: PropTypes.func.isRequired,
+    initialSearch: PropTypes.string,
     store: PropTypes.any,
   };
 
@@ -54,7 +65,7 @@ export default class Youtube extends Component {
     }
 
     return (
-      <Well>
+      <div>
         <div className={styles.yt_header}>
           <h3 className="pull-left">
             <i className="fa fa-youtube" />
@@ -73,7 +84,7 @@ export default class Youtube extends Component {
         {videos.loaded ?
           <VideoList videos={videos.items} list={this.state.listMode} />
         : <Loader />}
-      </Well>
+      </div>
     );
   }
 }

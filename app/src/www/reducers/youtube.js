@@ -13,7 +13,7 @@ const initialState = {
   loaded: false,
 };
 
-export default function reducer(state = initialState, action = {}) {
+export default function youtube(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
@@ -41,6 +41,6 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-// export function isLoaded(globalState) {
-//   return globalState.widgets && globalState.widgets.loaded;
-// }
+export function isLoaded(globalState) {
+  return globalState.videos && globalState.videos.loaded;
+}

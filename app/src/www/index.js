@@ -21,10 +21,6 @@ export function init(app) {
   // Set app/static for static assets (needed in prod)
   app.use(Express.static(path.join(__dirname, '../..', 'static')));
 
-  app.get('/mock/api/c/starwars/:mockName', (req, res) => {
-    res.send(require(`./mock/${req.params.mockName}.json`));
-  });
-
   app.use((req, res) => {
     if (__DEVELOPMENT__) {
       // Do not cache webpack stats: the script file would change since

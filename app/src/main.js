@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 require('./server.babel'); // babel registration (runtime transpilation for node)
+require('./config'); // Require secrets or finish process
 var path = require('path');
 var rootDir = path.resolve(__dirname, '../..');
 

@@ -3,7 +3,7 @@ require('babel/polyfill');
 try {
   require.resolve('./secrets');
 } catch (e) {
-  throw new Error(
+  console.error(
 `secrets.js not found.
 
 This file contains secrets and credentials that cannot be
@@ -12,6 +12,7 @@ stored in source code management, so you must create it.
 Use the provided file secrets-sample.js, and fill it with
 the real credentials.
 `);
+  process.exit(1);
 }
 
 module.exports = {

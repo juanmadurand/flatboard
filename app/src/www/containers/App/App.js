@@ -28,7 +28,9 @@ class App extends Component {
         />
         <Navbar fixedTop>
           <Col xs={4} md={2}>
-            <IndexLink to="/" className={styles.brand} />
+            <IndexLink to="/" className={styles.brand}>
+              <i className="fa fa-road fa-3x" />
+            </IndexLink>
           </Col>
         </Navbar>
 
