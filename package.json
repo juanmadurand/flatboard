@@ -74,8 +74,8 @@
     "redux-async-connect": "^1.0.0-rc2",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
-    "superagent": "^1.4.0",
-    "superagent-promise-plugin": "^2.1.0",
+    "superagent": "^1.8.3",
+    "superagent-promise-plugin": "^2.2.0",
     "use-scroll-behavior": "0.0.4",
     "webpack-isomorphic-tools": "^2.2.18"
   },
