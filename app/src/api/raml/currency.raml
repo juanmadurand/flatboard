@@ -1,0 +1,23 @@
+#%RAML 0.8
+/all:
+  description: Get all exchange currencies
+  get:
+    queryParameters:
+      source:
+        type: string
+        required: false
+      currencies:
+        type: string
+        required: false
+    responses:
+      200: {}
+/get/{source}/{dest}:
+  description: Get the currency exchange from one to another
+  get:
+    responses:
+      200: {}
+/list:
+  description: Get all currency names
+  get:
+    responses:
+      200: {}

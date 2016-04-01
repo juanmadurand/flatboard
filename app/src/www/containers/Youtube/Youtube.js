@@ -29,8 +29,7 @@ export default class Youtube extends Component {
   static propTypes = {
     videos: PropTypes.object,
     videoSearch: PropTypes.func.isRequired,
-    initialVideos: PropTypes.array,
-    store: PropTypes.any,
+    initialVideos: PropTypes.object,
   };
 
   constructor(props) {

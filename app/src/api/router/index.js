@@ -4,9 +4,11 @@ import cookieParser from 'cookie-parser';
 import * as response from 'api/response';
 import {ImATeapot} from 'api/errors';
 import YoutubeDao from 'api/dao/YoutubeDao';
+import CurrencyDao from 'api/dao/CurrencyDao';
 
 export function init() {
   const ytDao = new YoutubeDao();
+  const currencyDao = new CurrencyDao();
 
   const router = express.Router()
     .use(cookieParser());
@@ -17,6 +19,7 @@ export function init() {
       router.use(osprey.server(raml));
 
       router.use('/youtube', require('./youtube')(ytDao));
+      router.use('/currency', require('./currency')(currencyDao));
 
       // https://www.ietf.org/rfc/rfc2324.txt
       router.get('/brew/coffee', (req, res) => response.error(res, new ImATeapot()));
