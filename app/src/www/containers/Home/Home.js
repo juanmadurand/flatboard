@@ -15,6 +15,7 @@ import { Panel } from 'www/components';
 import {
   Youtube,
   Currency,
+  Xkcd,
 } from 'www/containers';
 
 @asyncConnect([{
@@ -36,11 +37,13 @@ import {
 @connect(
   state => ({
     videos: state.videos,
+    xkcdTitle: state.xkcd.loaded ? state.xkcd.title : '',
   }),
 )
 export default class Home extends Component {
   static propTypes = {
     videos: PropTypes.object,
+    xkcdTitle: PropTypes.string,
     store: PropTypes.object,
   };
   render() {
@@ -57,6 +60,13 @@ export default class Home extends Component {
               <Panel title="Currency Exchange" collapsible>
                 <Currency />
               </Panel>
+              <Row>
+                <Col md={6}>
+                  <Panel title={`Xkcd: ${this.props.xkcdTitle}`} collapsible>
+                    <Xkcd />
+                  </Panel>
+                </Col>
+              </Row>
             </Col>
             <Col xsHidden smHidden md={2} />
           </Row>

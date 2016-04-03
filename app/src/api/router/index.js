@@ -6,9 +6,11 @@ import {ImATeapot} from 'api/errors';
 import config from 'config';
 import YoutubeDao from 'api/dao/YoutubeDao';
 import CurrencyDao from 'api/dao/CurrencyDao';
+import ProxyDao from 'api/dao/ProxyDao';
 
 export function init() {
   const ytDao = new YoutubeDao();
+  const proxyDao = new ProxyDao();
   const currencyDao = new CurrencyDao(config.secrets.currency ?
     config.secrets.currency.apiKey : null);
 
@@ -22,6 +24,8 @@ export function init() {
 
       router.use('/youtube', require('./youtube')(ytDao));
       router.use('/currency', require('./currency')(currencyDao));
+
+      router.use('/proxy', require('./proxy')(proxyDao));
 
       // https://www.ietf.org/rfc/rfc2324.txt
       router.get('/brew/coffee', (req, res) => response.error(res, new ImATeapot()));

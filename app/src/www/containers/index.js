@@ -3,3 +3,4 @@ export Home from './Home/Home';
 export NotFound from './NotFound/NotFound';
 export Youtube from './Youtube/Youtube';
 export Currency from './Currency/Currency';
+export Xkcd from './Xkcd/Xkcd';

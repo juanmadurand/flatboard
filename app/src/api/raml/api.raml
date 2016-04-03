@@ -8,6 +8,16 @@ mediaType: application/json
 /youtube: !include youtube.raml
 /currency: !include currency.raml
 
+/proxy:
+  description: Proxy url to disable access origin
+  get:
+    queryParameters:
+      url:
+        type: string
+        required: false
+    responses:
+      200: {}
+
 /brew/coffee:
   get:
     responses:
