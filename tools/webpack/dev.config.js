@@ -2,12 +2,11 @@ require('babel/polyfill');
 require('webpack-isomorphic-tools');
 
 // Webpack config for development
-const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const assetsPath = path.resolve(__dirname, '../../app/static/dist');
-const host = 'localhost';
-const port = process.env.WEBPACK_PORT || 3001;
+const config = require('../../app/src/config');
+const baseUrl = `http://${config.webpack.host}:${config.webpack.port}`;
 
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 const WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
@@ -15,44 +14,16 @@ const webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(
   require('../../app/src/www/webpack-isomorphic-tools')
 );
 
-const babelrc = fs.readFileSync('./.babelrc');
-var babelrcObject = {};
-
-try {
-  babelrcObject = JSON.parse(babelrc);
-} catch (err) {
-  console.error('==>     ERROR: Error parsing your .babelrc.');
-  console.error(err);
-}
-
-const babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
-const babelLoaderQuery = Object.assign({}, babelrcObject, babelrcObjectDevelopment);
-delete babelLoaderQuery.env;
-
-babelLoaderQuery.plugins = babelLoaderQuery.plugins || [];
-if (babelLoaderQuery.plugins.indexOf('react-transform') < 0) {
-  babelLoaderQuery.plugins.push('react-transform');
-}
-
-babelLoaderQuery.extra = babelLoaderQuery.extra || {};
-if (!babelLoaderQuery.extra['react-transform']) {
-  babelLoaderQuery.extra['react-transform'] = {};
-}
-if (!babelLoaderQuery.extra['react-transform'].transforms) {
-  babelLoaderQuery.extra['react-transform'].transforms = [];
-}
-babelLoaderQuery.extra['react-transform'].transforms.push({
-  transform: 'react-transform-hmr',
-  imports: ['react'],
-  locals: ['module'],
-});
+const babelLoaderQuery = require('./babel.parse.js');
 
 module.exports = {
   devtool: 'eval',
   context: path.resolve(__dirname, '../..'),
+  host: config.webpack.host,
+  port: config.webpack.port,
   entry: {
     main: [
-      `webpack-hot-middleware/client?path=http://${host}:${port}/__webpack_hmr`,
+      `webpack-hot-middleware/client?path=${baseUrl}/__webpack_hmr`,
       'bootstrap-loader',
       'font-awesome-webpack!./app/src/www/theme/font-awesome.config.js',
       './app/src/www/client.js',
@@ -62,7 +33,7 @@ module.exports = {
     path: assetsPath,
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
-    publicPath: `http://${host}:${port}/dist/`,
+    publicPath: `${baseUrl}/dist/`,
   },
   module: {
     loaders: [

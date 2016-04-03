@@ -5,7 +5,7 @@ import config from '../../config';
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function apiUrl(path) {
-  const baseUri = __CLIENT__ ? '/' : `http://localhost:${config.server.port}/`;
+  const baseUri = __CLIENT__ ? '/' : `http://${config.server.host}:${config.server.port}/`;
   return url.resolve(baseUri, path);
 }
 
