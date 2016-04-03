@@ -3,12 +3,14 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import * as response from 'api/response';
 import {ImATeapot} from 'api/errors';
+import config from 'config';
 import YoutubeDao from 'api/dao/YoutubeDao';
 import CurrencyDao from 'api/dao/CurrencyDao';
 
 export function init() {
   const ytDao = new YoutubeDao();
-  const currencyDao = new CurrencyDao();
+  const currencyDao = new CurrencyDao(config.secrets.currency ?
+    config.secrets.currency.apiKey : null);
 
   const router = express.Router()
     .use(cookieParser());

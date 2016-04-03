@@ -20,8 +20,8 @@ export function loadValues() {
 }
 
 const initialState = {
-  values: [],
-  currencies: [],
+  values: {},
+  currencies: {},
 };
 
 export default function reducer(state = initialState, action = {}) {

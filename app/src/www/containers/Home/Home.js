@@ -41,6 +41,7 @@ import {
 export default class Home extends Component {
   static propTypes = {
     videos: PropTypes.object,
+    store: PropTypes.object,
   };
   render() {
     return (

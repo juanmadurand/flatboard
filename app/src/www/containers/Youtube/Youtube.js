@@ -44,13 +44,9 @@ export default class Youtube extends Component {
   }
 
   render() {
-    const debounceSearch = debounce((term) => { this.props.videoSearch(term) }, 300);
+    const debounceSearch = debounce((term) => { this.props.videoSearch(term) }, 1200);
 
     const videos = this.props.videos.loaded ? this.props.videos : this.props.initialVideos;
-
-    if (!this.state) {
-      return <div></div>;
-    }
 
     return (
       <div>
@@ -69,9 +65,13 @@ export default class Youtube extends Component {
           </div>
         </div>
         <SearchBar onSearchTermChange={debounceSearch} />
-        {videos ?
+        {videos.error &&
+          <div className="error">{videos.error.toString()}</div>
+        }
+        {videos.loading && <Loader />}
+        {videos.loaded &&
           <VideoList videos={videos.items} list={this.state.listMode} />
-        : <Loader />}
+        }
       </div>
     );
   }

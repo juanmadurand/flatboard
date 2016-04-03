@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { autobind } from 'core-decorators';
 
 import Input from 'react-bootstrap/lib/Input';
-
 import * as currencyActions from 'www/reducers/currency';
 
-import { connect } from 'react-redux';
 @connect(
   state => ({
     currencies: state.currency.currencies,
@@ -22,6 +21,10 @@ export default class Currency extends Component {
     values: PropTypes.object.isRequired,
   };
 
+  @autobind
+  handleInputChange() {
+    console.log(this);
+  }
 
   renderCurrencies(currency) {
     const currenciesOpt = [];
@@ -31,10 +34,15 @@ export default class Currency extends Component {
     return currenciesOpt;
   }
 
-  renderRow(currency) {
+  renderRow(idx) {
     return (
       <div className="form-inline">
-        <Input type="text" addonBefore="$" placeholder="Amount" />
+        <Input type="text"
+          addonBefore="$"
+          placeholder="Amount"
+          onChange={this.handleInputChange}
+          ref={`currency_${idx}`}
+        />
         <Input type="select" placeholder="select">
           {this.renderCurrencies(this.props.currencies)}
         </Input>
@@ -45,8 +53,8 @@ export default class Currency extends Component {
   render() {
     return (
       <div>
-        {this.renderRow()}
-        {this.renderRow()}
+        {this.renderRow(1)}
+        {this.renderRow(2)}
       </div>
     );
   }
