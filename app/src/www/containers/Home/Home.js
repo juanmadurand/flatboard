@@ -12,11 +12,8 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
 import { Panel } from 'www/components';
-import {
-  Youtube,
-  Currency,
-  Xkcd,
-} from 'www/containers';
+
+import * as Containers from 'www/containers';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -38,37 +35,41 @@ import {
   state => ({
     videos: state.videos,
     xkcdTitle: state.xkcd.loaded ? state.xkcd.title : '',
+    board: state.board,
   }),
 )
 export default class Home extends Component {
   static propTypes = {
+    board: PropTypes.object.isRequired,
     videos: PropTypes.object,
     xkcdTitle: PropTypes.string,
     store: PropTypes.object,
   };
+
+  renderSection(panels) {
+    return panels.map((panel) => {
+      const Comp = Containers[panel.comp];
+      return (
+        <Panel title={panel.title} collapsible key={panel.comp}>
+          <Comp />
+        </Panel>
+      );
+    });
+  }
+
   render() {
+    const { board } = this.props;
     return (
       <div>
         <Helmet title={'Flatboard'} />
-        <Grid>
+        <Grid fluid>
           <Row className="show-grid">
-            <Col xsHidden smHidden md={2} />
-            <Col sm={12} md={8}>
-              <Panel title="Youtube search" collapsible>
-                <Youtube initialVideos={this.props.videos} />
-              </Panel>
-              <Panel title="Currency Exchange" collapsible>
-                <Currency />
-              </Panel>
-              <Row>
-                <Col md={6}>
-                  <Panel title={`Xkcd: ${this.props.xkcdTitle}`} collapsible>
-                    <Xkcd />
-                  </Panel>
-                </Col>
-              </Row>
+            <Col md={6}>
+              {this.renderSection(board.left)}
             </Col>
-            <Col xsHidden smHidden md={2} />
+            <Col md={6}>
+              {this.renderSection(board.right)}
+            </Col>
           </Row>
         </Grid>
       </div>
