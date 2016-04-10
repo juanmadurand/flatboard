@@ -1,13 +1,47 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { DragSource } from 'react-dnd';
+
+import { move } from 'www/reducers/board';
+
 import classNames from 'classnames';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Button from 'react-bootstrap/lib/Button';
 
 const styles = require('./Panel.scss');
 
+const dragSource = {
+  beginDrag(props) {
+    return {
+      id: props.id,
+      zone: props.zone,
+    };
+  },
+  endDrag(props, monitor) {
+    const dropResult = monitor.getDropResult();
+    if (dropResult) {
+      props.move(props.id, dropResult.name);
+    }
+  },
+};
+
+@connect(
+  null,
+  dispatch => bindActionCreators({ move }, dispatch)
+)
+@DragSource('panel', dragSource, (connect, monitor) => ({ // eslint-disable-line
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging(),
+}))
 export default class Panel extends Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
     title: PropTypes.string,
+    move: PropTypes.func.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
     actionBtn: PropTypes.object,
     children: PropTypes.object,
     collapsible: PropTypes.bool,
@@ -56,6 +90,8 @@ export default class Panel extends Component {
       title,
       children,
       collapsible,
+      connectDragSource,
+      isDragging,
     } = this.props;
 
     const headingProps = {
@@ -68,11 +104,16 @@ export default class Panel extends Component {
     };
 
     return (
-      <div className={classNames('panel panel-primary', styles.panel_wrapper)}>
-        <div {...headingProps}>
-          <h3 className={classNames('panel-title', styles.panel_title)}>{title}</h3>
-          { this.renderHeaderAction() }
-        </div>
+      <div
+        className={classNames('panel panel-primary', styles.panel_wrapper)}
+        style={{opacity: isDragging ? 0.5 : 1}}
+      >
+        {connectDragSource(
+          <div {...headingProps}>
+            <h3 className={classNames('panel-title', styles.panel_title)}>{title}</h3>
+            { this.renderHeaderAction() }
+          </div>
+        )}
         { !this.state.collapsed &&
           <div className="panel-body">
             {children}

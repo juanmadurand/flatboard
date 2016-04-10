@@ -1,0 +1,11 @@
+.zone {
+  min-height: 100vh;
+  &_drop {
+    border: 3px dashed #ddd;
+    padding: 10vh 0;
+    text-align: center;
+    font-size: 24px;
+    color: #ddd;
+    text-transform: uppercase;
+  }
+}

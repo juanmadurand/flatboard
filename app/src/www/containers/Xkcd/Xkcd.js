@@ -70,7 +70,11 @@ export default class Youtube extends Component {
     return (
       <div className={styles.xkcd}>
         <div className={styles.xkcd_image}>
-          {comic.loading ? <Loader /> : <Image src={comic.img} className={styles.xkcd_image_i} />}
+          {comic.loading ? <Loader /> :
+            <a href={comic.img} target="_blank">
+              <Image src={comic.img} className={styles.xkcd_image_i} />
+            </a>
+          }
         </div>
         <div className={styles.xkcd_pagination}>
           <Button

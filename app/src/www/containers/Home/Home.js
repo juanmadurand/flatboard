@@ -1,19 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import Helmet from 'react-helmet';
 
-import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-async-connect';
+
+import { DragDropContext as dragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
+import { Zone } from 'www/components';
 
 import * as youtubeActions from 'www/reducers/youtube';
 import * as currencyActions from 'www/reducers/currency';
+import * as boardActions from 'www/reducers/board';
 
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-
-import { Panel } from 'www/components';
-
-import * as Containers from 'www/containers';
 
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
@@ -31,44 +32,24 @@ import * as Containers from 'www/containers';
     return Promise.all(promises);
   },
 }])
-@connect(
-  state => ({
-    videos: state.videos,
-    xkcdTitle: state.xkcd.loaded ? state.xkcd.title : '',
-    board: state.board,
-  }),
-)
+
+@dragDropContext(HTML5Backend)
 export default class Home extends Component {
   static propTypes = {
-    board: PropTypes.object.isRequired,
-    videos: PropTypes.object,
-    xkcdTitle: PropTypes.string,
     store: PropTypes.object,
   };
 
-  renderSection(panels) {
-    return panels.map((panel) => {
-      const Comp = Containers[panel.comp];
-      return (
-        <Panel title={panel.title} collapsible key={panel.comp}>
-          <Comp />
-        </Panel>
-      );
-    });
-  }
-
   render() {
-    const { board } = this.props;
     return (
       <div>
         <Helmet title={'Flatboard'} />
         <Grid fluid>
           <Row className="show-grid">
-            <Col md={6}>
-              {this.renderSection(board.left)}
+            <Col md={8}>
+              <Zone zone={boardActions.LEFT_ZONE} />
             </Col>
-            <Col md={6}>
-              {this.renderSection(board.right)}
+            <Col md={4}>
+              <Zone zone={boardActions.RIGHT_ZONE} />
             </Col>
           </Row>
         </Grid>
