@@ -36,6 +36,3 @@ node_modules
 /app/static/dist/
 /app/static/webpack-assets.json
 /app/static/api-doc/
-
-# Secrets
-/app/src/secrets.js

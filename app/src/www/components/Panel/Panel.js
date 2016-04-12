@@ -105,8 +105,11 @@ export default class Panel extends Component {
 
     return (
       <div
-        className={classNames('panel panel-primary', styles.panel_wrapper)}
-        style={{opacity: isDragging ? 0.5 : 1}}
+        className={classNames({
+          'panel panel-primary': true,
+          [styles.panel_wrapper]: true,
+          hide: isDragging,
+        })}
       >
         {connectDragSource(
           <div {...headingProps}>

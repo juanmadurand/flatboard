@@ -4,6 +4,8 @@ export const K_LOAD_FAIL = 'currency/key/LOAD_FAIL';
 export const V_LOAD = 'currency/values/LOAD';
 export const V_LOAD_SUCCESS = 'currency/values/LOAD_SUCCESS';
 export const V_LOAD_FAIL = 'currency/values/LOAD_FAIL';
+export const CHANGE_VALUE = 'currency/input/CHANGE_VALUE';
+export const CHANGE_FIELD = 'currency/input/CHANGE_FIELD';
 
 export function loadCurrencies() {
   return {
@@ -22,6 +24,8 @@ export function loadValues() {
 const initialState = {
   values: {},
   currencies: {},
+  nominal: 1,
+  fields: ['USD', 'GBP'],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -54,6 +58,21 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         error: action.error,
       };
+    case CHANGE_VALUE:
+      return {
+        ...state,
+        nominal: action.value,
+      };
+    case CHANGE_FIELD: {
+      const idx = action.idxPrevField;
+      return {
+        ...state,
+        fields: state.fields
+          .slice(0, idx)
+          .concat(action.nextField)
+          .concat(state.fields.slice(idx + 1)),
+      };
+    }
     default:
       return state;
   }
@@ -65,4 +84,19 @@ export function isCurrenciesLoaded(globalState) {
 
 export function isValuesLoaded(globalState) {
   return globalState.values && globalState.values.length > 0;
+}
+
+export function setNominalValue(value) {
+  return {
+    type: CHANGE_VALUE,
+    value,
+  };
+}
+
+export function changeField(idxPrevField, nextField) {
+  return {
+    type: CHANGE_FIELD,
+    idxPrevField,
+    nextField,
+  };
 }
