@@ -10,7 +10,7 @@
   },
   "main": "./app/src/main.js",
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run build-assets && npm run start-prod",
     "start-prod": "better-npm-run start-prod",
     "build": "npm run build-assets && npm run build-doc",
     "build-assets": "webpack --verbose --colors --display-error-details --config tools/webpack/prod.config.js",
