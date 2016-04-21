@@ -17,8 +17,8 @@ the real credentials.
 
 module.exports = {
   server: {
-    host: process.env.FLATBOARD_HOST || 'localhost',
-    port: process.env.FLATBOARD_PORT || 3000,
+    host: process.env.FLATBOARD_HOST || process.env.HOST || 'localhost',
+    port: process.env.FLATBOARD_PORT || process.env.PORT || 3000,
   },
   webpack: {
     host: process.env.WEBPACK_HOST || 'localhost',

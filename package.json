@@ -10,15 +10,15 @@
   },
   "main": "./app/src/main.js",
   "scripts": {
-    "start": "npm run build-assets && npm run start-prod",
+    "start": "npm run start-prod",
     "start-prod": "better-npm-run start-prod",
-    "build": "npm run build-assets && npm run build-doc",
+    "build": "npm run build-assets",
     "build-assets": "webpack --verbose --colors --display-error-details --config tools/webpack/prod.config.js",
-    "build-doc": "mkdir -p app/static/api-doc && raml2html app/src/api/raml/api.raml > app/static/api-doc/index.html",
     "lint": "eslint app",
     "start-dev": "better-npm-run start-dev",
     "watch-client": "better-npm-run watch-client",
-    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\""
+    "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\"",
+    "heroku-postbuild": "npm run build-assets && npm prune --production"
   },
   "betterScripts": {
     "start-prod": {
