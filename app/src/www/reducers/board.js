@@ -9,7 +9,7 @@ const initialState = [
   {
     id: 'Youtube',
     title: 'Youtube search!',
-    zone: LEFT_ZONE,
+    zone: RIGHT_ZONE,
   },
   {
     id: 'Xkcd',
@@ -17,9 +17,14 @@ const initialState = [
     zone: RIGHT_ZONE,
   },
   {
+    id: 'Player',
+    title: 'Youtube Player',
+    zone: LEFT_ZONE,
+  },
+  {
     id: 'Currency',
     title: 'Currency Converter',
-    zone: RIGHT_ZONE,
+    zone: LEFT_ZONE,
   },
 ];
 

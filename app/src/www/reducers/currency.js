@@ -6,6 +6,7 @@ export const V_LOAD_SUCCESS = 'currency/values/LOAD_SUCCESS';
 export const V_LOAD_FAIL = 'currency/values/LOAD_FAIL';
 export const CHANGE_VALUE = 'currency/input/CHANGE_VALUE';
 export const CHANGE_FIELD = 'currency/input/CHANGE_FIELD';
+export const ADD_FIELD = 'currency/input/ADD_FIELD';
 
 export function loadCurrencies() {
   return {
@@ -73,6 +74,14 @@ export default function reducer(state = initialState, action = {}) {
           .concat(state.fields.slice(idx + 1)),
       };
     }
+    case ADD_FIELD: {
+      const nonAddedCurrencies = Object.keys(state.currencies)
+        .filter((key) => (!state.fields.includes(key)));
+      return {
+        ...state,
+        fields: [...state.fields, nonAddedCurrencies[0]],
+      };
+    }
     default:
       return state;
   }
@@ -98,5 +107,11 @@ export function changeField(idxPrevField, nextField) {
     type: CHANGE_FIELD,
     idxPrevField,
     nextField,
+  };
+}
+
+export function addField() {
+  return {
+    type: ADD_FIELD,
   };
 }

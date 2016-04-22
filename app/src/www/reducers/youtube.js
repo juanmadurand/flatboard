@@ -1,6 +1,7 @@
 export const LOAD = 'youtube/LOAD';
 export const LOAD_SUCCESS = 'youtube/LOAD_SUCCESS';
 export const LOAD_FAIL = 'youtube/LOAD_FAIL';
+export const SELECT = 'youtube/SELECT';
 
 export function load(term = 'muse') {
   return {
@@ -36,6 +37,11 @@ export default function youtube(state = initialState, action = {}) {
         data: null,
         error: action.error,
       };
+    case SELECT:
+      return {
+        ...state,
+        selected: action.video,
+      };
     default:
       return state;
   }
@@ -43,4 +49,11 @@ export default function youtube(state = initialState, action = {}) {
 
 export function isLoaded(globalState) {
   return globalState.videos && globalState.videos.loaded;
+}
+
+export function selectVideo(video) {
+  return {
+    type: SELECT,
+    video,
+  };
 }
